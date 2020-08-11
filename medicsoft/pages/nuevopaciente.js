@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 
 const NUEVO_PACIENTE = gql`
     mutation nuevoPaciente($input: PacienteInput){
@@ -108,6 +109,23 @@ const NuevoPaciente = () => {
                     }
                 });
                 //console.log(data.nuevoPaciente);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                  
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Paciente Registrado Correctamente'
+                })
+
                 router.push('/');
             } catch (error) {
                 guardarMensaje(error.message.replace('GraphQL error: ', ''));
@@ -133,18 +151,20 @@ const NuevoPaciente = () => {
             {mensaje && mostrarMensaje()}
             <h1 className="text-2xl text-gray-800 font-light">Nuevo Paciente</h1>
 
-            <div className="flex justify-center mt-5">
-                <div className="w-full max-w-lg">
+            <div className="flex flex-col w-full max-w-sm mx-auto p-4 border border-gray-200 bg-white shadow flex justify-center mt-5 ">
+            {/* <div className="flex justify-center mt-5"> */}
+                <div className="flex flex-col mb-4 w-full max-w-lg">
                     <form
-                        className="bg-white shadow-md px-8 pt-6 pb-8 mb-4" 
+                        //className="bg-white shadow-md px-8 pt-6 pb-8 mb-4" 
                         onSubmit={formik.handleSubmit}
                     >
                         <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
                                     Nombre
                                 </label>
-                                <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                <input
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
+                                    svg=""
                                     id="nombre"
                                     type="text"
                                     placeholder="Nombre del Paciente"
@@ -166,7 +186,7 @@ const NuevoPaciente = () => {
                                     Apellido
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="apellido"
                                     type="text"
                                     placeholder="Apellido del Paciente"
@@ -188,7 +208,7 @@ const NuevoPaciente = () => {
                                     Cédula de Identidad
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="cedI"
                                     type="text"
                                     placeholder="Cédula de Identidad del Paciente"
@@ -210,7 +230,7 @@ const NuevoPaciente = () => {
                                     Historia Clínica
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="historiaClinica"
                                     type="text"
                                     placeholder="Historia Clínica"
@@ -232,7 +252,7 @@ const NuevoPaciente = () => {
                                     Número Telefónico
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="numeroTelefonico"
                                     type="text"
                                     placeholder="Numero Telefónico del Paciente"
@@ -247,7 +267,7 @@ const NuevoPaciente = () => {
                                     Email
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="email"
                                     type="email"
                                     placeholder="e-Mail del Paciente"
@@ -269,7 +289,7 @@ const NuevoPaciente = () => {
                                     Edad
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-indigo-600 focus:outline-none "
                                     id="edad"
                                     type="number"
                                     placeholder="Edad del Paciente"
@@ -288,7 +308,9 @@ const NuevoPaciente = () => {
 
                         <input
                             type="submit"
-                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                            rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                            active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
                             value="Registrar Paciente"
                         />
                     </form>

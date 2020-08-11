@@ -69,11 +69,28 @@ const Paciente = ({ paciente }) => {
 
                     //console.log(data);
                     //Mostrar una alerta
-                    Swal.fire(
-                        'Eliminado!',
-                        data.eliminarPaciente,
-                        'success'
-                    )
+                    // Swal.fire(
+                    //     'Eliminado!',
+                    //     data.eliminarPaciente,
+                    //     'success'
+                    // )
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        onOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                      
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Paciente Eliminado'
+                    })
+
                 } catch (error) {
                     console.log(error);
                 }            
@@ -90,28 +107,26 @@ const Paciente = ({ paciente }) => {
 
     return ( 
         <tr>
-            <td className="border px-4 py-2">{nombre} { apellido } </td>
-            <td className="border px-4 py-2">{ cedI } </td>
-            <td className="border px-4 py-2">{edad}</td>
-            <td className="border px-4 py-2">{email }</td>
-            <td className="border px-4 py-2">
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-900">{nombre} { apellido } </td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">{ cedI } </td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">{edad}</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">{email }</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">
                 <button
                     type="button"
-                    className="flex justify-center item-center bg-red-800 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold"
+                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-green-800"
                     onClick={ (  ) => confirmarEliminarPaciente() }
                 >
                     Eliminar
-                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="x-circle w-4 h-4 ml-2"><path  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
             </td>
-            <td className="border px-4 py-2">
+            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <button
                     type="button"
-                    className="flex justify-center item-center bg-green-600 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold"
+                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-green-800"
                     onClick={ (  ) => editarPaciente() }
                 >
                     Editar
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="pencil-alt w-4 h-4 ml-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 </button>
             </td>
         </tr>

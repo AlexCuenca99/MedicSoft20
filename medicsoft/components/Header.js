@@ -36,12 +36,12 @@ const Header = () => {
     }
 
     return ( 
-        <div className="sm:flex sm:justify-between mb-6">
-            <p className="mr-2 mb-5 lg-0">Hola { nombre } { apellido }</p>
+        <div className="flex justify-between flex items-center container sm-auto mb-6">
+            <p className="py-2 px-2 ml-8 rounded-md bg-white shadow-xs block text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"> Bienvenido/a: { nombre } { apellido }</p>
             <button 
                 onClick={() => cerrarSesion()}
                 type="button"
-                className="bg-blue-800 w-full sm:w-auto font-bold uppercase text-xs rounded py-1 px-2 text-white shadow-md"
+                className="mr-8 bg-blue-800 sm:w-auto group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
             >
                 Cerrar Sesión
             </button>

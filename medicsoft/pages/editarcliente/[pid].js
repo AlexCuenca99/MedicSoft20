@@ -103,11 +103,28 @@ const EditarCliente = () => {
             //console.log(data);
 
             // Mostrar alerta
-            Swal.fire(
-                'Actualizado',
-                'El cliente se actualizó correctamente',
-                'success'
-            )
+            // Swal.fire(
+            //     'Actualizado',
+            //     'El cliente se actualizó correctamente',
+            //     'success'
+            // )
+
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+            
+            Toast.fire({
+            icon: 'success',
+            title: 'Paciente Guardado Correctamente'
+            })
 
             // Redireccionar
             router.push('/');
@@ -288,8 +305,10 @@ const EditarCliente = () => {
 
                                 <input
                                     type="submit"
-                                    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
-                                    value="Editar Paciente"
+                                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                                    rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                                    active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
+                                    value="Guardar Cambios"
                                 />
                             </form>
                         )

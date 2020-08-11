@@ -97,11 +97,27 @@ const EditarEquipoMedico = () => {
             router.push('/equiposmedicos');
 
             //Alerta
-            Swal.fire(
-                'Correcto',
-                'El equipo se actualizo correctamente',
-                'success'
-            )
+            // Swal.fire(
+            //     'Correcto',
+            //     'El equipo se actualizo correctamente',
+            //     'success'
+            // )
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+              
+            Toast.fire({
+                icon: 'success',
+                title: 'Equipo Guardado Correctamente'
+            })
 
         } catch (error) {
             console.log(error)
@@ -112,7 +128,7 @@ const EditarEquipoMedico = () => {
 
     return (
         <Layout>
-            <h1 className="text-gray-800 text-2xl text-white font-light">Desde Edicion</h1>
+            <h1 className="text-gray-800 text-2xl text-white font-light">Editar Equipo Médico</h1>
             <div className="flex justify-center mt-5">
                 
                 <div className="w-full max-w-lg">
@@ -224,7 +240,9 @@ const EditarEquipoMedico = () => {
 
                         <input
                             type="submit"
-                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                            rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                            active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
                             value="Guardar Cambios"
                         />
 

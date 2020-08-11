@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { useRoute, useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 
 const AUTENTICAR_USUARIO = gql`
     mutation autenticarUsuario($input: AutenticarInput){
@@ -51,8 +52,24 @@ const Login = () => {
                     }
                 });
 
-                console.log(data);
-                guardarMensaje('Autenticando...');
+                //console.log(data);
+                // guardarMensaje('Autenticando...');
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  Toast.fire({
+                    icon: 'success',
+                    title: 'Signed in successfully'
+                  })
 
                 setTimeout(() => {
                     //Guardar token en localstorage
@@ -89,8 +106,15 @@ const Login = () => {
     return ( 
     
         <> 
+
             <Layout>
-                <h1 className="text-center text-2xl text-white font-light">Login</h1>
+                <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="Workflow">
+
+                </img>
+
+                <p className="mt-6 mb-15 text-center text-3xl leading-9 font-extrabold text-gray-900">
+                    Inicia Sesión con tu Cuenta
+                </p>
 
                 {mensaje && mostrarMensaje()}
                 
@@ -143,16 +167,23 @@ const Login = () => {
                                     <p>{ formik.errors.password }</p>
                                 </div>
                             ) : null }
-
+                            
                             <input
                                 type="submit"
-                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:cursor-pointer hover:bg-gray-900"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                                rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                                active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
                                 value="Iniciar Sesión"
                             />
                         </form>
                     </div>
                 </div>
                 
+                <h1 className="mt-10 text-center text-sm leading-5 text-gray-600">
+                    <p className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        MedicSoft20
+                    </p>
+                </h1>                
             </Layout>
         </>
      );

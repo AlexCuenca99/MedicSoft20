@@ -102,11 +102,27 @@ const NuevoMedicamento = () => {
                 router.push('/medicamentos');
 
                 //Mostrar una alerta
-                Swal.fire(
-                    'Creado',
-                    'Se creo el medicamento correctamente',
-                    'success'
-                )
+                // Swal.fire(
+                //     'Creado',
+                //     'Se creo el medicamento correctamente',
+                //     'success'
+                // )
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                  
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Medicamento Registrado Correctamente'
+                })
 
             } catch (error) {
                 
@@ -132,7 +148,7 @@ const NuevoMedicamento = () => {
                                     Nombre
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="nombre"
                                     type="text"
                                     placeholder="Nombre del Medicamento"
@@ -154,7 +170,7 @@ const NuevoMedicamento = () => {
                                     Fecha de Elaboracion
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="fechaElaboracion"
                                     type="date"
                                     placeholder="Fecha de Elaboracion"
@@ -176,7 +192,7 @@ const NuevoMedicamento = () => {
                                     Fecha de Vencimiento
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="fechaVencimiento"
                                     type="date"
                                     placeholder="Fecha de Vencimiento"
@@ -198,7 +214,7 @@ const NuevoMedicamento = () => {
                                     Precio
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="precio"
                                     type="number"
                                     placeholder="Precio"
@@ -220,7 +236,7 @@ const NuevoMedicamento = () => {
                                     Cantidad
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="existencia"
                                     type="number"
                                     placeholder="Cantidad"
@@ -239,7 +255,9 @@ const NuevoMedicamento = () => {
 
                         <input
                             type="submit"
-                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                            rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                            active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
                             value="Agregar Nuevo Medicamento"
                         />
 

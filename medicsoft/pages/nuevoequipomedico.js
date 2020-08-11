@@ -95,12 +95,27 @@ const NuevoEquipoMedico = () => {
                 router.push('/equiposmedicos');
 
                 //Mostrar una alerta
-                Swal.fire(
-                    'Creado',
-                    'Se creó el equipo correctamente',
-                    'success'
-                )
-
+                // Swal.fire(
+                //     'Creado',
+                //     'Se creó el equipo correctamente',
+                //     'success'
+                // )
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                  
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Equipo Registrado Correctamente'
+                })
             } catch (error) {
                 console.log(error);
             }
@@ -124,7 +139,7 @@ const NuevoEquipoMedico = () => {
                                     Nombre
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="nombre"
                                     type="text"
                                     placeholder="Nombre del Equipo"
@@ -146,7 +161,7 @@ const NuevoEquipoMedico = () => {
                                     Precio
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="precio"
                                     type="number"
                                     placeholder="Precio"
@@ -168,7 +183,7 @@ const NuevoEquipoMedico = () => {
                                     Área de Uso Destinada
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="areaUso"
                                     type="text"
                                     placeholder="Área de Uso Destinada"
@@ -190,7 +205,7 @@ const NuevoEquipoMedico = () => {
                                     Cantidad
                                 </label>
                                 <input 
-                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appereance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-indigo-600"
                                     id="cantidad"
                                     type="number"
                                     placeholder="Cantidad"
@@ -209,7 +224,9 @@ const NuevoEquipoMedico = () => {
 
                         <input
                             type="submit"
-                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium 
+                            rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo 
+                            active:bg-indigo-700 transition duration-150 ease-in-out uppercase"
                             value="Agregar Nuevo Equipo"
                         />
 

@@ -67,11 +67,27 @@ const EquipoMedico = ( {equipoMedico} ) => {
                     });
 
                     //console.log( data );
-                    Swal.fire(
-                        'Equipo Eliminado',
-                        data.eliminarEquipoMedico,
-                        'success'
-                    )
+                    // Swal.fire(
+                    //     'Equipo Eliminado',
+                    //     data.eliminarEquipoMedico,
+                    //     'success'
+                    // )
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        onOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                      
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Equipo Eliminado'
+                    })
 
                  } catch (error) {
                      console.log(error);
@@ -89,29 +105,26 @@ const EquipoMedico = ( {equipoMedico} ) => {
 
     return ( 
         <tr>
-            <td className="border px-4 py-2">{ nombre }</td>
-            <td className="border px-4 py-2">$ { precio }</td>
-            {/* <td className="border px-4 py-2">{ fechaCompra }</td> */}
-            <td className="border px-4 py-2">{ areaUso }</td>
-            <td className="border px-4 py-2">{ cantidad } Unidades</td>
-            <td className="border px-4 py-2">
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-900">{ nombre }</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">$ { precio }</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">{ areaUso }</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">{ cantidad } Unidades</td>
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">
                 <button
                     type="button"
-                    className="flex justify-center item-center bg-red-800 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold"
+                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-green-800"
                     onClick={ (  ) => confirmarEliminarEquipoMedico() }
                 >
                     Eliminar
-                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="x-circle w-4 h-4 ml-2"><path  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
             </td>
-            <td className="border px-4 py-2">
+            <td className="px-6 py-4 text-sm leading-5 font-medium text-gray-600">
                 <button
                     type="button"
-                    className="flex justify-center item-center bg-green-600 py-2 px-4 w-full text-white rounded text-xs uppercase font-bold"
+                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-200 text-green-800"
                     onClick={ (  ) => editarEquipoMedico() }
                 >
                     Editar
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="pencil-alt w-4 h-4 ml-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                 </button>
             </td>
         </tr>
